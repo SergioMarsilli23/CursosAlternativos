@@ -1,7 +1,7 @@
 APP_EXECUTION_FILE = target/BaseDeDatosWebMS.war
 DOCKER_COMPOSE  = docker-compose -f .deployment/docker/docker-compose.yml
 DOCKER_COMPOSE_BASIC = docker-compose -f .deployment/docker/docker-compose-basic.yml
-DOCKER_COMPOSE_SINGLE = docker-compose -f .deployment/docker/docker-compose-single.yml
+#DOCKER_COMPOSE_SINGLE = docker-compose -f .deployment/docker/docker-compose-single.yml
 UNAME := $(shell uname)
 
 COLOR_RESET   = \033[0m
@@ -32,7 +32,7 @@ init: build docker-main-start ## Build and start application (docker + spring bo
 run: docker-main-start ## Start application (docker + spring boot)
 
 .PHONY: start
-start: build docker-single-start ## Build and start application (docker with no dependencies)
+start: build docker-main-start ## Build and start application (docker with no dependencies)
 
 .PHONY: docker
 docker: docker-basic-start ## Start application containers, run spring-boot on your own
