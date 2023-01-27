@@ -1,0 +1,69 @@
+i18n:
+    basename: i18n/messages
+    locale:
+        default-value: en
+        supported: en,es
+#logging:
+#    level:
+#        org.hibernate.SQL: DEBUG
+#        org.hibernate.type: TRACE
+#        org.hibernate.stat: INFO
+management:
+    endpoint:
+        health:
+            show-components: always
+            show-details: always
+liquibase:
+    log-level: info
+    sql:
+        log-level: info
+spring:
+    profiles:
+        active: ${APPMS_PROFILE:local}
+    datasource:
+        continue-on-error: true
+        initialization-mode: always
+        #url: jdbc:postgresql://postgresql:5432/postgres
+        #username: postgres
+        #password: root
+        max-active: 200
+        hikari:
+            minimum-idle: 10
+            idle-timeout: 10000
+            connection-timeout: 20000
+            maximum-pool-size: 30
+    liquibase:
+        enabled: true
+        change-log: classpath:/changelog/db.changelog-master.yaml
+    jpa:
+        hibernate:
+            ddl-auto: none
+        properties:
+            hibernate:
+                dialect: org.hibernate.dialect.PostgreSQLDialect
+                format_sql: true
+                jdbc:
+                    time_zone: America/Mexico_City
+        show-sql: false
+        open-in-view: false
+    web:
+        resources:
+            static-locations: classpath:/res/
+    mvc:
+        static-path-pattern: /res/**
+    thymeleaf:
+        encoding: UTF-8
+        mode: HTML
+        prefix: classpath:/templates/
+        suffix: .html
+        cache: false
+server:
+    port: 8080
+    error:
+        whitelabel:
+            enabled: false
+    servlet:
+        context-path: /CursosAlternativos
+    tomcat:
+        max-http-form-post-size: 16384
+#

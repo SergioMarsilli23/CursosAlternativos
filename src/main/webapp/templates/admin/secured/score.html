@@ -1,0 +1,177 @@
+
+<div>
+	<div th:insert="admin/secured/header"></div>
+
+	<div id="container-fluid" class="fondo" ng-init="loadScoreList()">
+		<div class="row list-operation">
+			<div class="panel panel-primary panel-primary-custom">
+				<div class="panel-heading">
+					Calificaciones
+				</div>
+		
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+							<form name="filterForm" novalidate>
+								<div class="row">
+									<div class="form-group col-sm-1 pull-left">
+										<label class="pull-right" style="padding-top:7px;" for="managerSelector">Materia</label>
+									</div>
+									<div class="form-group col-sm-3 pull-left mw250">
+										<ui-select ng-model="selectedCourse" theme="bootstrap" search-enabled="true" on-select="changeCourse($item)">
+											<ui-select-match placeholder="- Seleccione -">{{$select.selected.nombre}}</ui-select-match>
+											<ui-select-choices repeat="course in courseTopSelectorList | filter: $select.search">
+												<div ng-bind-html="course.nombre | highlight: $select.search"></div>
+											</ui-select-choices>
+										</ui-select>
+									</div>
+									<div class="form-group col-sm-1 pull-left">
+										<label class="pull-right" style="padding-top:7px;" for="managerSelector">Alumno</label>
+									</div>
+									<div class="form-group col-sm-3 pull-left mw250">
+										<ui-select ng-model="selectedStudent" theme="bootstrap" search-enabled="true" on-select="changeStudent($item)">
+											<ui-select-match placeholder="- Seleccione -">{{$select.selected.nombreCompleto}}</ui-select-match>
+											<ui-select-choices repeat="student in studentTopSelectorList | filter: $select.search">
+												<div ng-bind-html="student.nombreCompleto | highlight: $select.search"></div>
+											</ui-select-choices>
+										</ui-select>
+									</div>
+									<div class="col-sm-4 pull-right btnset mw320">
+										<div class="row">
+											<div class="form-group col-sm-4 pull-right">
+												<button title="Añadir gestor" class="btn btn-default form-control" style="height:34px; margin-top:0px;" data-toggle="modal" ng-click="addScore()"><span class="glyphicon glyphicon-white glyphicon-plus hover"></span></button>
+											</div>
+										</div>
+								</div>
+							</form>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+							<div class="table-responsive">
+								<table datatable="ng" dt-options="dtOptions" dt-column-defs="dtColumnDefs" dt-instance="dtInstance" class="row-border hover table">
+									<thead>
+										<tr>
+											<th>ID</th>
+											<th>Materia</th>
+											<th>Alumno</th>
+											<th>Calificación</th>
+											<th>Fecha</th>
+											<th><span style="font-size:18px;">✎&nbsp;✘</span></th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr ng-repeat="score in scoreList">
+											<td>
+												{{score.id}}
+											</td>
+											<td>
+												{{score.materia.nombre}}
+											</td>
+											<td>
+												{{score.alumno.nombre}} {{score.alumno.apellidoPaterno}} {{score.alumno.apellidoMaterno}}
+											</td>
+											<td>
+												{{score.calificacion}}
+											</td>
+											<td>
+												{{score.fechaRegistro}}
+											</td>
+											<td>
+												<div class="btn-group" role="group" aria-label="...">
+													<i ng-click="editScore(score, $index)"><span class="glyphicon glyphicon-pencil"></span></i>
+													<i ng-click="removeScore(score, $index)"><span class="glyphicon glyphicon-trash"></span></i>
+												</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>	
+</div>
+
+<!-- Modals -->
+
+<!-- Score Form Modal -->
+<div class="modal fade" id="scoreEditDialog" tabindex="-1" role="dialog" aria-labelledby="scoreEditDialogLabel" aria-hidden="true">
+	<div class="modal-dialog offer-modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h3 class="modal-title" id="formModalLabel">Editar calificación</h3>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div>
+					<section ng-app="myApp">
+						<form novalidate="novalidate" name="scoreForm" autocomplete="off" id="scoreForm" spellcheck="false">
+							<div class="form-group row">
+								<label class="col-sm-3 col-form-label" for="ruleType">Alumno</label>
+								<div class="col-sm-5">
+									<select ng-model="scoreToEdit.score.alumno" class="form-control" id="scoreStudent" name="scoreStudent" required="required"
+											ng-options="student.nombreCompleto for student in studentSelectorList track by student.id">
+										<option value="">-Seleccionar-</option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group row">
+								<label class="col-sm-3 col-form-label" for="ruleType">Materia</label>
+								<div class="col-sm-5">
+									<select ng-model="scoreToEdit.score.materia" class="form-control" id="scoreCourse" name="scoreCourse" required="required"
+											ng-options="course.nombre for course in courseSelectorList track by course.id">
+										<option value="">-Seleccionar-</option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group row">
+								<label class="col-sm-3 col-form-label" for="scoreName">Calificación</label>
+								<div class="col-sm-7">
+									<input type="text" class="form-control" id="scoreValue" name="scoreValue" ng-model="scoreToEdit.score.calificacion" decimal-places placeholder="Calificación" required="required" maxlength="5" />
+								</div>
+							</div>
+						</form>
+					</section>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary center" ng-click="saveScore()">Guardar</button>
+				<button type="button" class="btn btn-secondary center" data-dismiss="modal">Cerrar</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<!-- Confirmation Modal -->
+<div class="modal fade" id="scoreDeleteDialog" tabindex="-1" role="dialog" aria-labelledby="scoreDeleteDialogLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h3 class="modal-title" id="confirmModalLabel">Confirmar acci&oacute;n</h3>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="form-group row">
+					<div class="col-sm-12">
+						¿Desea eliminar el registro del gestor de contenido?<br/>
+						&raquo; {{ scoreToDelete.score.alumno.nombre }} {{ scoreToDelete.score.alumno.apellidoPaterno }} {{ scoreToDelete.score.alumno.apellidoMaterno }} <br/>
+						&raquo; {{ scoreToDelete.score.materia.nombre }} &rArr; {{ scoreToDelete.score.calificacion }}
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+				<button type="button" class="btn btn-primary" ng-click="deleteScore(scoreToDelete)">Eliminar</button>
+			</div>
+		</div>
+	</div>
+</div>
+

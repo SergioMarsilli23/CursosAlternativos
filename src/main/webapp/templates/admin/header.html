@@ -1,0 +1,51 @@
+<div ng-controller="MenuController" ng-init="initMenu()">
+	<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left menu"
+		id="cbp-spmenu-s1">
+		<ul>
+			<li>
+				<a id="a-menu-exit" href="#/logout">
+					<span class="iconos-menu">
+						<img src="" th:src="@{'/res/img/close.png' + ${cache}}" width="24" height="24" alt="" />
+					</span>Cerrar sesión
+				</a>
+			</li>
+		</ul>
+	</nav>
+
+	<header>
+
+		<div id="cabecera" class="row">
+			<div id="icono-menu" class="col-xs-1">
+				<div id="showLeft">
+					<div class="dropdown-toggle">
+						<button id="btn-menu" class="c-hamburger c-hamburger--htx">
+							<span id="btn-menu-txt">toggle menu</span>
+						</button>
+					</div>
+				</div>
+				<div class="logo col-xs-3">
+					<img src="" th:src="@{'/res/img/logo.jpg' + ${cache}}" style="max-height: 27px;" alt="" />
+				</div>
+			</div>
+
+			<div id="logos-cliente" class="logo-cliente">
+				<!-- <img src="" alt="" style="height:40px;" /> -->
+			</div>
+			<div id="user" class="row">
+				<div id="ruta" class="col-xs-6"></div>
+				<div id="username" class="col-xs-6">
+					<span id="lbl-username">Bienvenido: <span th:text="${usuario}"></span> </span>
+					<span class="desconectar glyphicon glyphicon-user"
+						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+						ng-click="toggleUser($event)"></span>
+					<ul class="dropdown-menu pull-right" id="dropdownUser">
+						<li><a class="pointer-span" href="#/logout"  > <span
+								class="desconectar glyphicon glyphicon-off user-icons"></span> <span
+								class="user-icons-label">Cerrar sesión</span>
+						</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</header>
+</div>

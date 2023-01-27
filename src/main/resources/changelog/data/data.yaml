@@ -1,0 +1,9 @@
+databaseChangeLog:
+    -   changeSet:
+            id: insert.initial.data
+            author: sergio.martinez@soacmc.com
+            changes:
+                -   sqlFile:
+                        path: ../sql/data.sql
+                        relativeToChangelogFile: true
+#

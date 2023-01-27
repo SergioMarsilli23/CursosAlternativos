@@ -1,0 +1,134 @@
+
+<div>
+	<div th:insert="admin/secured/header"></div>
+
+	<div id="container-fluid" class="fondo" ng-init="loadCourseList()">
+		<div class="row list-operation">
+			<div class="panel panel-primary panel-primary-custom">
+				<div class="panel-heading">
+					Materias
+				</div>
+		
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+							<form name="filterForm" novalidate>
+								<div class="row">
+									<div class="form-group col-sm-1 pull-right">
+										<button title="Añadir materia" class="btn btn-default form-control" style="height:34px; margin-top:0px;" data-toggle="modal" ng-click="addCourse()"><span class="glyphicon glyphicon-white glyphicon-plus hover"></span></button>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+							<div class="table-responsive">
+								<table datatable="ng" dt-options="dtOptions" dt-column-defs="dtColumnDefs" dt-instance="dtInstance" class="row-border hover table">
+									<thead>
+										<tr>
+											<th>ID</th>
+											<th>Nombre</th>
+											<th>Activa</th>
+											<th><span style="font-size:18px;">✎&nbsp;✘</span></th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr ng-repeat="course in courseList">
+											<td>
+												{{course.id}}
+											</td>
+											<td>
+												{{course.nombre}}
+											</td>
+											<td>
+												{{course.activo ? 'Sí' : 'No'}}
+											</td>
+											<td>
+												<div class="btn-group" role="group" aria-label="...">
+													<i ng-click="editCourse(course, $index)"><span class="glyphicon glyphicon-pencil"></span></i>
+													<i ng-click="removeCourse(course, $index)"><span class="glyphicon glyphicon-trash"></span></i>
+												</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>	
+</div>
+
+<!-- Modals -->
+
+<!-- CMS Form Modal -->
+<div class="modal fade" id="courseEditDialog" tabindex="-1" role="dialog" aria-labelledby="courseEditDialogLabel" aria-hidden="true">
+	<div class="modal-dialog offer-modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h3 class="modal-title" id="formModalLabel">Editar materia</h3>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div>
+					<section ng-app="myApp">
+						<form novalidate="novalidate" name="courseForm" autocomplete="off" id="courseForm" spellcheck="false">
+							<div class="form-group row">
+								<label class="col-sm-3 col-form-label" for="courseName">Nombre</label>
+								<div class="col-sm-7">
+									<input type="text" class="form-control" id="courseName" name="courseName" ng-model="courseToEdit.course.nombre" placeholder="Nombre" required="required" maxlength="100" />
+								</div>
+							</div>
+							<div class="form-group row">
+								<label class="col-sm-3 col-form-label" for="ruleEnabled">Activa</label>
+								<div class="col-sm-4">
+									<select ng-model="courseToEdit.course.activo" class="form-control" id="courseEnabled" name="courseEnabled" required="required" 
+											ng-options="v as l for (l,v) in {'Sí':true, 'No':false}">
+										<option value="">- Seleccione -</option>
+									</select>
+								</div>
+							</div>
+						</form>
+					</section>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary center" ng-click="saveCourse()">Guardar</button>
+				<button type="button" class="btn btn-secondary center" data-dismiss="modal">Cerrar</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<!-- Confirmation Modal -->
+<div class="modal fade" id="courseDeleteDialog" tabindex="-1" role="dialog" aria-labelledby="courseDeleteDialogLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h3 class="modal-title" id="confirmModalLabel">Confirmar acci&oacute;n</h3>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="form-group row">
+					<div class="col-sm-12">
+						¿Desea eliminar el registro de la materia?<br/>
+						&raquo; {{ courseToDelete.course.nombre }}
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+				<button type="button" class="btn btn-primary" ng-click="deleteCourse(courseToDelete)">Eliminar</button>
+			</div>
+		</div>
+	</div>
+</div>
+

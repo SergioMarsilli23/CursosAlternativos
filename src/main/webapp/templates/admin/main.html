@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html dir="ltr" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" ng-app="AngularApp" ng-controller="MainController" ng-cloak>
+	<head>
+		<meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+		<meta content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" name="viewport" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<meta name="description" content="TUTUM - Cursos Alternativos" />
+		<meta name="keywords" content="" />
+		<meta name="author" content="GrupoCMC" />
+		<meta http-equiv="cache-control" content="max-age=0" />
+		<meta http-equiv="cache-control" content="no-cache, must-revalidate" />
+		<meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT" />
+		<meta http-equiv="pragma" content="no-cache" />
+		<title>TUTUM - Cursos Alternativos</title>
+		
+		<link rel="stylesheet" type="text/css" href="" th:href="@{'/res/css/bootstrap/bootstrap.min.css' + ${cache}}" />
+		<link rel="stylesheet" type="text/css" href="" th:href="@{'/res/css/jquery/jquery-ui.min.css' + ${cache}}" />
+		<link rel="stylesheet" type="text/css" href="" th:href="@{'/res/css/angular/angular-growl.min.css' + ${cache}}" />
+		<link rel="stylesheet" type="text/css" href="" th:href="@{'/res/css/angular/angular-block-ui.min.css' + ${cache}}" />
+		<link rel="stylesheet" type="text/css" href="" th:href="@{'/res/css/angular/select.css' + ${cache}}" />
+		<link rel="stylesheet" type="text/css" href="" th:href="@{'/res/css/data-tables/buttons.dataTables.css' + ${cache}}" />
+		<link rel="stylesheet" type="text/css" href="" th:href="@{'/res/css/data-tables/dataTables.colReorder.css' + ${cache}}" />
+		<link rel="stylesheet" type="text/css" href="" th:href="@{'/res/css/data-tables/dataTables.colVis.css' + ${cache}}" />
+		<link rel="stylesheet" type="text/css" href="" th:href="@{'/res/css/data-tables/dataTables.fixedColumns.css' + ${cache}}" />
+		<link rel="stylesheet" type="text/css" href="" th:href="@{'/res/css/data-tables/dataTables.scroller.css' + ${cache}}" />
+		<link rel="stylesheet" type="text/css" href="" th:href="@{'/res/css/data-tables/dataTables.tableTools.css' + ${cache}}" />
+		<link rel="stylesheet" type="text/css" href="" th:href="@{'/res/css/login.css' + ${cache}}" />
+		<link rel="stylesheet" type="text/css" href="" th:href="@{'/res/css/elementos_fijos.css' + ${cache}}" />
+		<link rel="stylesheet" type="text/css" href="" th:href="@{'/res/css/elementos_tablas.css' + ${cache}}" />
+		
+		<link rel="shortcut icon" type="image/png" href="" th:href="@{'/res/img/favicon.ico' + ${cache}}" />
+		
+		<script type="text/javascript" th:inline="javascript">
+			//<![CDATA[
+			var applicationContext = /*[[@{/}]]*/ '/';
+			applicationContext = applicationContext.replace(/(\/.+)\/$/,"$1");
+			//]]>
+		</script>
+		
+		<script type="text/javascript" src="" th:src="@{'/res/js/lib/cryptojs-3.1.2.js' + ${cache}}"></script>
+		<script type="text/javascript" src="" th:src="@{'/res/js/lib/classie.js' + ${cache}}"></script>
+		
+		<script type="text/javascript" src="" th:src="@{'/res/js/jquery/jquery.js' + ${cache}}"></script>
+		<script type="text/javascript" src="" th:src="@{'/res/js/bootstrap/bootstrap.min.js' + ${cache}}"></script>
+		<script type="text/javascript" src="" th:src="@{'/res/js/angular/lib/angular.js' + ${cache}}"></script>
+		<script type="text/javascript" src="" th:src="@{'/res/js/angular/lib/angular-sanitize.js' + ${cache}}"></script>
+		<script type="text/javascript" src="" th:src="@{'/res/js/angular/lib/select.js' + ${cache}}"></script>
+		<script type="text/javascript" src="" th:src="@{'/res/js/jquery/jquery.validate.min.js' + ${cache}}"></script>
+		<script type="text/javascript" src="" th:src="@{'/res/js/jquery/jquery-ui-1.10.3.custom.js' + ${cache}}"></script>
+		<script type="text/javascript" src="" th:src="@{'/res/js/jquery/jquery-ui-datepicker-es.js' + ${cache}}"></script>
+		<script type="text/javascript" src="" th:src="@{'/res/js/jquery/jquery.validate.messages.js' + ${cache}}"></script>
+		
+		<script type="text/javascript" src="" th:src="@{'/res/js/jquery/jquery.dataTables.js' + ${cache}}"></script>
+		<script type="text/javascript" src="" th:src="@{'/res/js/bootstrap/ui-bootstrap-tpls-1.1.1.min.js' + ${cache}}"></script>
+		
+		<script type="text/javascript" src="" th:src="@{'/res/js/angular/lib/angular-datatables.js' + ${cache}}"></script>
+		<script type="text/javascript" src="" th:src="@{'/res/js/angular/lib/angular-datatables.directive.js' + ${cache}}"></script>
+		<script type="text/javascript" src="" th:src="@{'/res/js/angular/lib/angular-datatables.factory.js' + ${cache}}"></script>
+		<script type="text/javascript" src="" th:src="@{'/res/js/angular/lib/angular-datatables.instances.js' + ${cache}}"></script>
+		<script type="text/javascript" src="" th:src="@{'/res/js/angular/lib/angular-datatables.options.js' + ${cache}}"></script>
+		<script type="text/javascript" src="" th:src="@{'/res/js/angular/lib/angular-datatables.renderer.js' + ${cache}}"></script>
+		<script type="text/javascript" src="" th:src="@{'/res/js/angular/lib/angular-datatables.util.js' + ${cache}}"></script>
+		<script type="text/javascript" src="" th:src="@{'/res/js/angular/lib/angular-filter.min.js' + ${cache}}"></script>
+		<script type="text/javascript" src="" th:src="@{'/res/js/angular/lib/angular-growl.min.js' + ${cache}}"></script>
+		<script type="text/javascript" src="" th:src="@{'/res/js/angular/lib/angular-ui-router.min.js' + ${cache}}"></script>
+		<script type="text/javascript" src="" th:src="@{'/res/js/angular/lib/angular-block-ui.min.js' + ${cache}}"></script>
+		<script type="text/javascript" src="" th:src="@{'/res/js/angular/lib/angular-idle.min.js' + ${cache}}"></script>
+		
+		<script type="text/javascript" src="" th:src="@{'/res/js/angular/app.js' + ${cache}}"></script>
+
+		<script type="text/javascript" src="" th:src="@{'/res/js/angular/mod/main-controller.js' + ${cache}}"></script>
+		<script type="text/javascript" src="" th:src="@{'/res/js/angular/mod/menu-controller.js' + ${cache}}"></script>
+		<script type="text/javascript" src="" th:src="@{'/res/js/angular/mod/login-controller.js' + ${cache}}"></script>
+		<script type="text/javascript" src="" th:src="@{'/res/js/angular/mod/logout-controller.js' + ${cache}}"></script>
+		<script type="text/javascript" src="" th:src="@{'/res/js/angular/mod/index-controller.js' + ${cache}}"></script>
+
+		<script type="text/javascript" src="" th:src="@{'/res/js/angular/mod/token-service.js' + ${cache}}"></script>
+		<script type="text/javascript" src="" th:src="@{'/res/js/angular/mod/login-service.js' + ${cache}}"></script>
+		
+		<script type="text/javascript" src="" th:src="@{'/res/js/angular/mod/sec/secured-controller.js' + ${cache}}"></script>
+		<script type="text/javascript" src="" th:src="@{'/res/js/angular/mod/sec/index-controller.js' + ${cache}}"></script>
+		
+		<script type="text/javascript" src="" th:src="@{'/res/js/angular/mod/sec/course-controller.js' + ${cache}}"></script>
+		<script type="text/javascript" src="" th:src="@{'/res/js/angular/mod/sec/student-controller.js' + ${cache}}"></script>
+		<script type="text/javascript" src="" th:src="@{'/res/js/angular/mod/sec/score-controller.js' + ${cache}}"></script>
+		<script type="text/javascript" src="" th:src="@{'/res/js/angular/mod/sec/extra-controller.js' + ${cache}}"></script>
+		
+		<script type="text/javascript" src="" th:src="@{'/res/js/angular/mod/sec/course-service.js' + ${cache}}"></script>
+		<script type="text/javascript" src="" th:src="@{'/res/js/angular/mod/sec/student-service.js' + ${cache}}"></script>
+		<script type="text/javascript" src="" th:src="@{'/res/js/angular/mod/sec/score-service.js' + ${cache}}"></script>
+		<script type="text/javascript" src="" th:src="@{'/res/js/angular/mod/sec/extra-service.js' + ${cache}}"></script>
+		
+		
+		<script type="text/javascript" th:inline="javascript">
+			//<![CDATA[
+				
+			//]]>
+		</script>
+	</head>
+	<body id="body" class="cbp-spmenu-s1 fondo" ng-cloak>
+		<div global-events style="height: 100%;">
+			<div ui-view></div>
+		</div>
+		<div growl></div>
+	</body>
+</html>

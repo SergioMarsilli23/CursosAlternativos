@@ -1,0 +1,215 @@
+
+<div>
+	<div th:insert="admin/secured/header"></div>
+
+	<div id="container-fluid" class="fondo" ng-init="initExtra()">
+		
+		<div class="row list-operation">
+			<div class="panel panel-primary panel-primary-custom">
+				<div class="panel-heading">
+					Funciones EXTRA: Acción POST
+				</div>
+				<div class="panel-body">
+					<div class="row">
+						<form name="filterForm" novalidate>
+							<div class="col-sm-5 col-md-5 col-lg-5 col-xl-5">
+								<div class="row">
+									<div class="form-group col-sm-12">
+										<textarea ng-model="actionPostRequest" rows="0" cols="0" style="width: 100%; height: 100px;"></textarea>
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-2 col-md-2 col-lg-2 col-xl-2">
+								<button title="Ejecutar" class="btn btn-default form-control" style="height:34px; margin-top:0px;" ng-click="runPost()"><span class="glyphicon glyphicon-white glyphicon-play hover"></span></button>
+							</div>
+							<div class="col-sm-5 col-md-5 col-lg-5 col-xl-5">
+								<div class="row">
+									<div class="form-group col-sm-12">
+										<textarea ng-model="actionPostResponse" rows="0" cols="0" style="width: 100%; height: 100px;" readonly="readonly"></textarea>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="row list-operation">
+			<div class="panel panel-primary panel-primary-custom">
+				<div class="panel-heading">
+					Funciones EXTRA: Acción GET
+				</div>
+				<div class="panel-body">
+					<div class="row">
+						<form name="filterForm" novalidate>
+							<div class="col-sm-5 col-md-5 col-lg-5 col-xl-5">
+								<div class="row">
+									<div class="form-group col-sm-12">
+										<input type="text" class="form-control" id="extraGetId" name="extraGetId" ng-model="actionGetRequest" placeholder="ID de alumno" required="required" maxlength="5" />
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-2 col-md-2 col-lg-2 col-xl-2">
+								<button title="Ejecutar" class="btn btn-default form-control" style="height:34px; margin-top:0px;" ng-click="runGet()"><span class="glyphicon glyphicon-white glyphicon-play hover"></span></button>
+							</div>
+							<div class="col-sm-5 col-md-5 col-lg-5 col-xl-5">
+								<div class="row">
+									<div class="form-group col-sm-12">
+										<textarea ng-model="actionGetResponse" rows="0" cols="0" style="width: 100%; height: 100px;" readonly="readonly"></textarea>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="row list-operation">
+			<div class="panel panel-primary panel-primary-custom">
+				<div class="panel-heading">
+					Funciones EXTRA: Acción PUT
+				</div>
+				<div class="panel-body">
+					<div class="row">
+						<form name="filterForm" novalidate>
+							<div class="col-sm-5 col-md-5 col-lg-5 col-xl-5">
+								<div class="row">
+									<div class="form-group col-sm-12">
+										<textarea ng-model="actionPutRequest" rows="0" cols="0" style="width: 100%; height: 100px;"></textarea>
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-2 col-md-2 col-lg-2 col-xl-2">
+								<button title="Ejecutar" class="btn btn-default form-control" style="height:34px; margin-top:0px;" ng-click="runPut()"><span class="glyphicon glyphicon-white glyphicon-play hover"></span></button>
+							</div>
+							<div class="col-sm-5 col-md-5 col-lg-5 col-xl-5">
+								<div class="row">
+									<div class="form-group col-sm-12">
+										<textarea ng-model="actionPutResponse" rows="0" cols="0" style="width: 100%; height: 100px;" readonly="readonly"></textarea>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="row list-operation">
+			<div class="panel panel-primary panel-primary-custom">
+				<div class="panel-heading">
+					Funciones EXTRA: Acción DELETE
+				</div>
+				<div class="panel-body">
+					<div class="row">
+						<form name="filterForm" novalidate>
+							<div class="col-sm-5 col-md-5 col-lg-5 col-xl-5">
+								<div class="row">
+									<div class="form-group col-sm-12">
+										<input type="text" class="form-control" id="extraDeleteId" name="extraDeleteId" ng-model="actionDeleteRequest" placeholder="ID de calificación" required="required" maxlength="5" />
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-2 col-md-2 col-lg-2 col-xl-2">
+								<button title="Ejecutar" class="btn btn-default form-control" style="height:34px; margin-top:0px;" ng-click="runDelete()"><span class="glyphicon glyphicon-white glyphicon-play hover"></span></button>
+							</div>
+							<div class="col-sm-5 col-md-5 col-lg-5 col-xl-5">
+								<div class="row">
+									<div class="form-group col-sm-12">
+										<textarea ng-model="actionDeleteResponse" rows="0" cols="0" style="width: 100%; height: 100px;" readonly="readonly"></textarea>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+	</div>	
+</div>
+
+<!-- Modals -->
+
+<!-- CMS Form Modal -->
+<div class="modal fade" id="extraEditDialog" tabindex="-1" role="dialog" aria-labelledby="extraEditDialogLabel" aria-hidden="true">
+	<div class="modal-dialog offer-modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h3 class="modal-title" id="formModalLabel">Editar alumno</h3>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div>
+					<section ng-app="myApp">
+						<form novalidate="novalidate" name="extraForm" autocomplete="off" id="extraForm" spellcheck="false">
+							<div class="form-group row">
+								<label class="col-sm-3 col-form-label" for="extraName">Nombre</label>
+								<div class="col-sm-7">
+									<input type="text" class="form-control" id="extraName" name="extraName" ng-model="extraToEdit.extra.nombre" placeholder="Nombre" required="required" maxlength="80" />
+								</div>
+							</div>
+							<div class="form-group row">
+								<label class="col-sm-3 col-form-label" for="extraMnemonic">Ap paterno</label>
+								<div class="col-sm-7">
+									<input type="text" class="form-control" id="extraMnemonic" name="extraMnemonic" ng-model="extraToEdit.extra.apellidoPaterno" placeholder="Nemónico" required="required" maxlength="80" />
+								</div>
+							</div>
+							<div class="form-group row">
+								<label class="col-sm-3 col-form-label" for="extraBaseEndpoint">Ap materno</label>
+								<div class="col-sm-7">
+									<input type="text" class="form-control" id="extraBaseEndpoint" name="extraBaseEndpoint" ng-model="extraToEdit.extra.apellidoMaterno" placeholder="Endpoint base" required="required" maxlength="80" />
+								</div>
+							</div>
+							<div class="form-group row">
+								<label class="col-sm-3 col-form-label" for="ruleEnabled">Activo</label>
+								<div class="col-sm-4">
+									<select ng-model="extraToEdit.extra.activo" class="form-control" id="extraEnabled" name="extraEnabled" required="required" 
+											ng-options="v as l for (l,v) in {'Sí':true, 'No':false}">
+										<option value="">- Seleccione -</option>
+									</select>
+								</div>
+							</div>
+						</form>
+					</section>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary center" ng-click="saveExtra()">Guardar</button>
+				<button type="button" class="btn btn-secondary center" data-dismiss="modal">Cerrar</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<!-- Confirmation Modal -->
+<div class="modal fade" id="extraDeleteDialog" tabindex="-1" role="dialog" aria-labelledby="extraDeleteDialogLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h3 class="modal-title" id="confirmModalLabel">Confirmar acci&oacute;n</h3>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="form-group row">
+					<div class="col-sm-12">
+						¿Desea eliminar el registro del alumno?<br/>
+						&raquo; {{ extraToDelete.extra.nombre }} {{ extraToDelete.extra.apellidoPaterno }} {{ extraToDelete.extra.apellidoMaterno }}
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+				<button type="button" class="btn btn-primary" ng-click="deleteExtra(extraToDelete)">Eliminar</button>
+			</div>
+		</div>
+	</div>
+</div>
+

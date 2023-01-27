@@ -1,0 +1,15 @@
+		<div ng-init="checkState()">
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="logoLogin"></div>
+					<div class="login-block" >
+						<form novalidate name="loginForm" autocomplete="off">
+							<h1 id="login-title">Cursos Alternos</h1>
+							<input type="text" title="Utilice &#34;tutum&#34;" value="" name="usuario" placeholder="Usuario | utilice &#34;tutum&#34;" id="username_login" ng-model="credential.username" autocomplete="off" required="required" />
+							<input type="password" title="Utilice &#34;1234&#34;" value="" name="contrasena" placeholder="Contraseña | utilice &#34;1234&#34;" id="password" ng-model="credential.password" autocomplete="off" required="required" />
+							<button id="login-button" type="submit" ng-click="login(credential)">Acceder</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>

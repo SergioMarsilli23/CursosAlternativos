@@ -1,0 +1,154 @@
+
+<div>
+	<div th:insert="admin/secured/header"></div>
+
+	<div id="container-fluid" class="fondo" ng-init="loadStudentList()">
+		<div class="row list-operation">
+			<div class="panel panel-primary panel-primary-custom">
+				<div class="panel-heading">
+					Alumnos
+				</div>
+		
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+							<form name="filterForm" novalidate>
+								<div class="row">
+									<div class="form-group col-sm-1 pull-right">
+										<button title="Añadir alumno" class="btn btn-default form-control" style="height:34px; margin-top:0px;" data-toggle="modal" ng-click="addStudent()"><span class="glyphicon glyphicon-white glyphicon-plus hover"></span></button>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+							<div class="table-responsive">
+								<table datatable="ng" dt-options="dtOptions" dt-column-defs="dtColumnDefs" dt-instance="dtInstance" class="row-border hover table">
+									<thead>
+										<tr>
+											<th>ID</th>
+											<th>Nombre</th>
+											<th>Ap Paterno</th>
+											<th>Ap Materno</th>
+											<th>Activo</th>
+											<th><span style="font-size:18px;">✎&nbsp;✘</span></th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr ng-repeat="student in studentList">
+											<td>
+												{{student.id}}
+											</td>
+											<td>
+												{{student.nombre}}
+											</td>
+											<td>
+												{{student.apellidoPaterno}}
+											</td>
+											<td>
+												{{student.apellidoMaterno}}
+											</td>
+											<td>
+												{{student.activo ? 'Sí' : 'No'}}
+											</td>
+											<td>
+												<div class="btn-group" role="group" aria-label="...">
+													<i ng-click="editStudent(student, $index)"><span class="glyphicon glyphicon-pencil"></span></i>
+													<i ng-click="removeStudent(student, $index)"><span class="glyphicon glyphicon-trash"></span></i>
+												</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>	
+</div>
+
+<!-- Modals -->
+
+<!-- CMS Form Modal -->
+<div class="modal fade" id="studentEditDialog" tabindex="-1" role="dialog" aria-labelledby="studentEditDialogLabel" aria-hidden="true">
+	<div class="modal-dialog offer-modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h3 class="modal-title" id="formModalLabel">Editar alumno</h3>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div>
+					<section ng-app="myApp">
+						<form novalidate="novalidate" name="studentForm" autocomplete="off" id="studentForm" spellcheck="false">
+							<div class="form-group row">
+								<label class="col-sm-3 col-form-label" for="studentName">Nombre</label>
+								<div class="col-sm-7">
+									<input type="text" class="form-control" id="studentName" name="studentName" ng-model="studentToEdit.student.nombre" placeholder="Nombre" required="required" maxlength="80" />
+								</div>
+							</div>
+							<div class="form-group row">
+								<label class="col-sm-3 col-form-label" for="studentMnemonic">Ap paterno</label>
+								<div class="col-sm-7">
+									<input type="text" class="form-control" id="studentMnemonic" name="studentMnemonic" ng-model="studentToEdit.student.apellidoPaterno" placeholder="Nemónico" required="required" maxlength="80" />
+								</div>
+							</div>
+							<div class="form-group row">
+								<label class="col-sm-3 col-form-label" for="studentBaseEndpoint">Ap materno</label>
+								<div class="col-sm-7">
+									<input type="text" class="form-control" id="studentBaseEndpoint" name="studentBaseEndpoint" ng-model="studentToEdit.student.apellidoMaterno" placeholder="Endpoint base" required="required" maxlength="80" />
+								</div>
+							</div>
+							<div class="form-group row">
+								<label class="col-sm-3 col-form-label" for="ruleEnabled">Activo</label>
+								<div class="col-sm-4">
+									<select ng-model="studentToEdit.student.activo" class="form-control" id="studentEnabled" name="studentEnabled" required="required" 
+											ng-options="v as l for (l,v) in {'Sí':true, 'No':false}">
+										<option value="">- Seleccione -</option>
+									</select>
+								</div>
+							</div>
+						</form>
+					</section>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary center" ng-click="saveStudent()">Guardar</button>
+				<button type="button" class="btn btn-secondary center" data-dismiss="modal">Cerrar</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<!-- Confirmation Modal -->
+<div class="modal fade" id="studentDeleteDialog" tabindex="-1" role="dialog" aria-labelledby="studentDeleteDialogLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h3 class="modal-title" id="confirmModalLabel">Confirmar acci&oacute;n</h3>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="form-group row">
+					<div class="col-sm-12">
+						¿Desea eliminar el registro del alumno?<br/>
+						&raquo; {{ studentToDelete.student.nombre }} {{ studentToDelete.student.apellidoPaterno }} {{ studentToDelete.student.apellidoMaterno }}
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+				<button type="button" class="btn btn-primary" ng-click="deleteStudent(studentToDelete)">Eliminar</button>
+			</div>
+		</div>
+	</div>
+</div>
+

@@ -1,0 +1,112 @@
+databaseChangeLog:
+    -   changeSet:
+            id: createConfiguracionCmsSchema
+            author: Sergio Marsilli
+            changes:
+                -   sql:
+                        endDelimiter: ;
+                        sql: CREATE SCHEMA IF NOT EXISTS escuela;
+    -   changeSet:
+            id: grantConfiguracionCmsSchema
+            author: Sergio Marsilli
+            failOnError: false
+            changes:
+                -   sql:
+                        endDelimiter: ;
+                        sql: GRANT ALL ON SCHEMA escuela TO postgres;
+    -   changeSet:
+            id: createTables
+            author: Sergio Marsilli
+            changes:
+                -   createTable:
+                        tableName: t_alumnos
+                        schemaName: escuela
+                        columns:
+                            -   column:
+                                    constraints:
+                                        nullable: false
+                                        primaryKey: true
+                                        primaryKeyName: pk_t_alumnos
+                                    name: id_t_usuarios
+                                    type: int generated always as identity
+                            -   column:
+                                    name: nombre
+                                    type: varchar(80)
+                            -   column:
+                                    name: ap_paterno
+                                    type: varchar(80)
+                            -   column:
+                                    name: ap_materno
+                                    type: varchar(80)
+                            -   column:
+                                    name: activo
+                                    type: boolean
+                -   createTable:
+                        tableName: t_materias
+                        schemaName: escuela
+                        columns:
+                            -   column:
+                                    constraints:
+                                        nullable: false
+                                        primaryKey: true
+                                        primaryKeyName: pk_t_materias
+                                    name: id_t_materias
+                                    type: int generated always as identity
+                            -   column:
+                                    name: nombre
+                                    type: varchar(80)
+                            -   column:
+                                    name: activo
+                                    type: boolean
+                -   createTable:
+                        tableName: t_calificaciones
+                        schemaName: escuela
+                        columns:
+                            -   column:
+                                    constraints:
+                                        nullable: false
+                                        primaryKey: true
+                                        primaryKeyName: pk_t_calificaciones
+                                    name: id_t_calificaciones
+                                    type: int generated always as identity
+                            -   column:
+                                    constraints:
+                                        nullable: false
+                                    name: id_t_materias
+                                    type: int
+                            -   column:
+                                    constraints:
+                                        nullable: false
+                                    name: id_t_usuarios
+                                    type: int
+                            -   column:
+                                    name: calificacion
+                                    type: numeric(4,2)
+                            -   column:
+                                    name: fecha_registro
+                                    type: date
+    -   changeSet:
+            id: createForeignKeys
+            author: Sergio Marsilli
+            changes:
+                -   addForeignKeyConstraint:
+                        constraintName: fk_calif_materias
+                        baseTableSchemaName: escuela
+                        referencedTableSchemaName: escuela
+                        baseTableName: t_calificaciones
+                        baseColumnNames: id_t_materias
+                        referencedTableName: t_materias
+                        referencedColumnNames: id_t_materias
+                        onDelete: CASCADE
+                        onUpdate: RESTRICT
+                -   addForeignKeyConstraint:
+                        constraintName: fk_calif_alumnos
+                        baseTableSchemaName: escuela
+                        referencedTableSchemaName: escuela
+                        baseTableName: t_calificaciones
+                        baseColumnNames: id_t_usuarios
+                        referencedTableName: t_alumnos
+                        referencedColumnNames: id_t_usuarios
+                        onDelete: CASCADE
+                        onUpdate: RESTRICT
+#

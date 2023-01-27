@@ -1,0 +1,10 @@
+databaseChangeLog:
+
+    -   include:
+            file: schema/db.yaml
+            relativeToChangelogFile: true
+
+    -   include:
+            file: data/data.yaml
+            relativeToChangelogFile: true
+#
